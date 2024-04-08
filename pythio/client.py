@@ -20,7 +20,7 @@ class Client:
         except Exception as err:
             print(__file__, err, __file__)
 
-    async def on_message(self, filters):
+    async def on_message(self):
         '''Use this method to receive updates
         Example:
             from bale import Client
