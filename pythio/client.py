@@ -1,27 +1,68 @@
-import requests
+from network import Network
+from util import message
+from exceptions import *
+
+import asyncio
 
 
 class Client:
-    def __init__(self, api_token: str, timeout: float = 10):
-        self.api_token = api_token
-        self.timeout = timeout
-        self.session = requests.session()
 
-        if not api_token:
-            raise ValueError('`api_token` did\'t passed')
+    def __init__(self, token: str, timeout: float = 20) -> None:
+        self.loop = asyncio.get_event_loop()
+        self.network = Network(token=token, timeout=timeout)
 
-    @property
-    def url(self) -> str:
-        return f'https://api.telegram.org/bot{self.api_token}/'
+        if not token:
+            raise TokenNotInvalid('`token` did\'t passed')
 
+    async def request(self, method: str, data: dict = None, files: dict = None) -> dict:
+        try:
+            return await self.network.connect(method=method, data=data, files=files)
+        except Exception as err:
+            print(__file__, err, __file__)
 
-    def request(self, method: str, payload: dict = None) -> dict:
-        with self.session.post(url=self.url + method, data=payload, timeout=self.timeout) as responce:
-            if responce.status_code != requests.codes.ok:
-                print(__file__, responce.status_code, responce, __file)
-            else:
-                return responce.json()
+    async def on_message(self, filters):
+        '''Use this method to receive updates
+        Example:
+            from bale import Client
+            import asyncio
 
+            client = Client('token', timeout=10)
+            async def main():
+                async for update in client.on_message():
+                    print(update.text)
+                    await update.reply('hello __from__ **balepy**')
 
-    async def get_me(self) -> dict:
-        return self.request(method='getme')
+            asyncio.run(main())
+        '''
+        payload: dict = {
+            'offset': -1, 'limit': 100
+        }
+        while True:
+            update = await self.request('getupdates', payload)
+            payload['offset'] = 1
+            if update != None and update != []:
+                break
+
+        payload['offset'], payload['limit'] = update[len(update)-1]['update_id'], 1
+        while True:
+            responce = await self.request('getupdates', payload)
+            if responce != None and responce != []:
+                payload['offset'] += 1
+                final_responce = message(responce[0], self.network.token, self.network.timeout)
+                if final_responce.chat_type in filters:
+                    return final_responce
+
+    async def send_message(
+            self,
+            chat_id: str | int,
+            text: str,
+            reply_markup: int = None,
+            reply_to_message_id: int = None
+    ) -> dict:
+        payload: dict = {
+            'chat_id': chat_id,
+            'text': text,
+            'reply_markup': reply_markup,
+            'reply_to_message_id': reply_to_message_id
+        }
+        return await self.request('sendmessage', data=payload)
