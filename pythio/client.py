@@ -23,14 +23,14 @@ class Client:
     async def on_message(self):
         '''Use this method to receive updates
         Example:
-            from bale import Client
+            from pythio import Client
             import asyncio
 
             client = Client('token', timeout=10)
             async def main():
                 async for update in client.on_message():
                     print(update.text)
-                    await update.reply('hello __from__ **balepy**')
+                    await update.reply('hello __from__ **pythio**')
 
             asyncio.run(main())
         '''
@@ -48,9 +48,7 @@ class Client:
             responce = await self.request('getupdates', payload)
             if responce != None and responce != []:
                 payload['offset'] += 1
-                final_responce = message(responce[0], self.network.token, self.network.timeout)
-                if final_responce.chat_type in filters:
-                    return final_responce
+                yield message(responce[0], self.network.token, self.network.timeout)
 
     async def send_message(
             self,
