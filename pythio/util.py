@@ -1,9 +1,14 @@
+from network import Network
 
 class message:
 
-    def __init__(self, data: dict, token: str, timeout: float):
-        self.network = Network(token=token, timeout=timeout)
-        self.data = data
+    def __init__(self, data: dict, **kwargs):
+        self.data: dict = data
+        self.network = Network(
+            token=kwargs.get('token'),
+            timeout=kwargs.get('timeout'),
+            proxy=kwargs.get('proxy')
+        )
 
     @property
     def message(self):
