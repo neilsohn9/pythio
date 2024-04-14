@@ -33,10 +33,10 @@ class Chat(Object):
         self.all_members_are_administrators: bool = all_members_are_administrators
         self.description: str = description
         self.invite_link: str = invite_link
-        self.pinned_message: "objects.Message" = pinned_message
+        self.pinned_message: 'objects.Message' = pinned_message
         self.sticker_set_name: str = sticker_set_name
         self.can_set_sticker_set: bool = can_set_sticker_set
-        self.photo: "objects.ChatPhoto" = photo
+        self.photo: 'objects.ChatPhoto' = photo
 
     @property
     def full_name(self):
