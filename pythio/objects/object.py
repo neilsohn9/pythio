@@ -2,8 +2,6 @@ from typing import get_type_hints, get_args, get_origin, Union, List, Optional
 import json, copy
 import pythio
 
-attribute_names = list()
-
 
 class Object:
 
