@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..states import StateMachine
+# from ..states import StateMachine
 from . import Object
 
 
@@ -35,11 +35,11 @@ class User(Object):
             return self.first_name
         return ''
 
-    def set_state(self, state):
-        StateMachine.global_state_machine[self.id] = state
+    # def set_state(self, state):
+    #     StateMachine.global_state_machine[self.id] = state
 
-    def get_state(self):
-        return StateMachine.global_state_machine[self.id]
-
-    def del_state(self):
-        del StateMachine.global_state_machine[self.id]
+    # def get_state(self):
+    #     return StateMachine.global_state_machine[self.id]
+    #
+    # def del_state(self):
+    #     del StateMachine.global_state_machine[self.id]
