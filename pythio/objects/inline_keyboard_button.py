@@ -12,7 +12,6 @@ class InlineKeyboardButton(Object):
             url: Optional[str] = None,
             switch_inline_query: Optional[str] = None,
             switch_inline_query_current_chat: Optional[str] = None,
-            # pay: Optional[bool] = None,
             **kwargs
     ):
         super().__init__(**kwargs)
