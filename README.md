@@ -21,4 +21,4 @@ if __name__ == '__main__':
 ```
 
 ## Documents
-- [Telegram Channel](https://t.me/pythio)
+- [Telegram Channel](https://t.me/annonmouse)
