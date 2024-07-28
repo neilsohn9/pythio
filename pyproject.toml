@@ -2,7 +2,7 @@
 name = "pythio"
 version = "0.0.2"
 authors = [
-  { name="amirali irvany", email="dev.amirali.irvany@gmail.com" },
+  { name="mouse annon", email="mouseannon@outlook.com" },
 ]
 description = "A library for bot development in Telegram messengers"
 readme = "README.md"
@@ -14,5 +14,5 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/metect/pythio"
-Issues = "https://github.com/metect/pythio/issues"
+Homepage = "https://github.com/mouseannon/pythio"
+Issues = "https://github.com/mouseannon/pythio/issues"
