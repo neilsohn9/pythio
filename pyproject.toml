@@ -14,5 +14,5 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mouseannon/pythio"
-Issues = "https://github.com/mouseannon/pythio/issues"
+Homepage = "https://github.com/neilsohn9/pythio"
+Issues = "https://github.com/neilsohn9/pythio/issues"
